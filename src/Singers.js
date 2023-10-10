@@ -11,18 +11,17 @@ export default function Singers() {
 
   const [lyrics, setLyrics] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(null);
-  const [selectedSingerIndex, setSelectedSingerIndex] = useState(null);
+  const [SingerIndex, setSingerIndex] = useState(null);
 
   
-  const handleSingerClick = (index) => {
+  const changeSinger = (index) => {
     if (currentIndex === null) {
       setCurrentIndex(0);
     } else {
       setCurrentIndex(currentIndex + 1);
     }
 
-
-    setSelectedSingerIndex(index);
+    setSingerIndex(index);
 
     setLyrics(prevLyrics => {
       const updatedLyrics = [...prevLyrics];
@@ -40,6 +39,9 @@ export default function Singers() {
     });
   };
 
+
+
+  
   return (
 
 
@@ -69,9 +71,10 @@ export default function Singers() {
                   height: 80,
                   backgroundColor: singer.color,
                   color: "white",
-                  fontSize: 20
+                  fontSize: 20,
+                  margin:2
                 }}
-                onClick={() => handleSingerClick(index)}
+                onClick={() => changeSinger(index)}
               >
                 {singer.name}
               </button>

@@ -13,8 +13,8 @@ export default function Fourth() {
 
   return (
     <input
-      style={{ width: 900, height: 40, borderRadius: 20 }}
-      type="text"
+    style={{ width: 900, height: 40, borderRadius: 20,height:75}}
+    type="text"
       value={inputValue}
       onInput={updateInput}
     />

@@ -13,7 +13,7 @@ export default function First() {
 
   return (
     <input
-      style={{ width: 900, height: 40, borderRadius: 20 }}
+      style={{ width: 900, height: 40, borderRadius: 20,height:75}}
       type="text"
       value={inputValue}
       onInput={updateInput}

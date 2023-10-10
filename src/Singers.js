@@ -101,7 +101,7 @@ export default function Singers() {
 <div style={{ alignItems: "center", display: "flex", flexDirection: "column", gap: 5, border: "4px solid black", width: 1000, height: 800, borderRadius: 20, marginTop: 10}}>
         {lyrics.map((lyricData, i) => (
           lyricData.text && (
-            <div key={i} style={{ marginTop: 2, width: 900,padding:10,borderRadius:20,fontWeight:'bolder', backgroundColor: singerData[lyricData.index].color }}>
+            <div key={i} style={{marginTop: 2, width: 900,padding:10,borderRadius:20,fontWeight:'bolder', backgroundColor: singerData[lyricData.index].color }}>
               {lyricData.text}
             </div>
           )

@@ -1,11 +1,49 @@
-import { Link, Outlet} from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { useState } from "react";
 
-
 export default function Singers() {
+  const singerData = [
+    { name: "FIRST", color: "lightpink" },
+    { name: "SECOND", color: "aquamarine" },
+    { name: "THIRD", color: "purple" },
+    { name: "FOURTH", color: "grey" }
+  ];
+
   const [lyrics, setLyrics] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(null);
+  const [selectedSingerIndex, setSelectedSingerIndex] = useState(null);
+
+  
+  const handleSingerClick = (index) => {
+    if (currentIndex === null) {
+      setCurrentIndex(0);
+    } else {
+      setCurrentIndex(currentIndex + 1);
+    }
+
+
+    setSelectedSingerIndex(index);
+
+    setLyrics(prevLyrics => {
+      const updatedLyrics = [...prevLyrics];
+      updatedLyrics.push({ index, text: "" });
+      return updatedLyrics;
+    });
+  };
+
+
+  const updateLyric = (index, text) => {
+    setLyrics(prevLyrics => {
+      const updatedLyrics = [...prevLyrics];
+      updatedLyrics[index].text = text;
+      return updatedLyrics;
+    });
+  };
 
   return (
+
+
+
     <div
       style={{
         display: "flex",
@@ -13,78 +51,61 @@ export default function Singers() {
         alignItems: "center",
         justifyContent: "center",
         height: "80vh",
-        gap:20
+        gap: 20
       }}
     >
       <h1 style={{ textAlign: "center" }}>Complete the Lyrics</h1>
 
+
+
+
       <div style={{ display: "flex", gap: 1 }}>
-        <Link to="first" style={{ textDecoration: "none" }}>
-          <button
-            style={{
-              width: 200,
-              height: 80,
-              backgroundColor: "lightpink",
-              color: "white",
-              fontSize: 22
-            }}
-          >
-            FIRST SINGER
-          </button>
-        </Link>
-
-        <Link to="second" style={{ textDecoration: "none" }}>
-          <button
-            style={{
-              width: 200,
-              height: 80,
-              backgroundColor: "aquamarine",
-              color: "white",
-              fontSize: 20
-            }}
-          >
-            SECOND SINGER
-          </button>
-        </Link>
-
-        <Link to="third" style={{ textDecoration: "none" }}>
-          <button
-            style={{
-              width: 200,
-              height: 80,
-              backgroundColor: "purple",
-              color: "white",
-              fontSize: 20
-            }}
-          >
-            THIRD SINGER
-          </button>
-        </Link>
-
-        <Link to="fourth" style={{ textDecoration: "none" }}>
-          <button
-            style={{
-              width: 200,
-              height: 80,
-              backgroundColor: "grey",
-              color: "white",
-              fontSize: 20
-            }}
-          >
-            FOURTH SINGER
-          </button>
-        </Link>
+        <div style={{ display: "flex", gap: 1 }}>
+          {singerData.map((singer, index) => (
+            <Link to={singer.name.toLowerCase()} style={{ textDecoration: "none" }} key={index}>
+              <button
+                style={{
+                  width: 200,
+                  height: 80,
+                  backgroundColor: singer.color,
+                  color: "white",
+                  fontSize: 20
+                }}
+                onClick={() => handleSingerClick(index)}
+              >
+                {singer.name}
+              </button>
+            </Link>
+          ))}
+        </div>
       </div>
 
-      <Outlet context={[lyrics, setLyrics]} />
-      
-      <div style={{alignItems:'center',display:'flex',flexDirection:'column',gap:5, border: '4px solid black', width: 1000, height: 500, borderRadius: 20, marginTop: 10 }}>
-  {lyrics.map((lyric, i) => (
-    <div key={i} style={{marginTop:10, width:900, border:'1px solid'}}>
-      {lyric}
-    </div>
-  ))}
-</div>
+
+
+      {currentIndex !== null && (
+        <Outlet
+          context={[
+            lyrics[lyrics.length - 1]?.text || "",
+            (newLyric) => {
+              updateLyric(lyrics.length - 1, newLyric); 
+            }
+          ]}
+        />
+      )}
+
+
+
+<div style={{ alignItems: "center", display: "flex", flexDirection: "column", gap: 5, border: "4px solid black", width: 1000, height: 800, borderRadius: 20, marginTop: 10}}>
+        {lyrics.map((lyricData, i) => (
+          lyricData.text && (
+            <div key={i} style={{ marginTop: 2, width: 900,padding:10,borderRadius:20,fontWeight:'bolder', backgroundColor: singerData[lyricData.index].color }}>
+              {lyricData.text}
+            </div>
+          )
+        ))}
+      </div>
+
+
 
     </div>
   );

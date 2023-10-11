@@ -1,7 +1,6 @@
-import React, { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
-export default function Third() {
+export default function First() {
   const [lyrics, setLyrics] = useOutletContext();
 
   const updateInput = (e) => {
@@ -11,8 +10,8 @@ export default function Third() {
 
   return (
     <input
-    style={{ width: 900, borderRadius: 20,height:75}}
-    type="text"
+      style={{ width: 900, borderRadius: 20,height:75,fontSize:21}}
+      type="text"
       onInput={updateInput}
     />
   );

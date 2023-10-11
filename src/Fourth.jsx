@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
 export default function Fourth() {
@@ -11,7 +10,7 @@ export default function Fourth() {
 
   return (
     <input
-    style={{ width: 900, borderRadius: 20,height:75}}
+    style={{ width: 900, borderRadius: 20,height:75,fontSize:21}}
     type="text"
       onInput={updateInput}
     />
